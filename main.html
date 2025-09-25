@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat & Impact Risk Calculator</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>OWASP Risk Calculator</h1>
+        <p class="subtitle">A tool based on the OWASP Risk Rating Methodology.</p>
+
+        <div class="card">
+            <h3>🔍 Vulnerability Input</h3>
+            <label for="vulnerabilityName">Vulnerability / Threat Name</label>
+            <input type="text" id="vulnerabilityName" placeholder="e.g., SQL Injection on Login Page">
+        </div>
+
+        <div class="card">
+            <h3>🔍 CVE Lookup</h3>
+            <input type="text" id="cveInput" placeholder="Enter CVE ID (e.g. CVE-2023-12345)">
+            <button onclick="fetchCVE()">Fetch</button>
+            <div id="cveResult" class="result-box"></div>
+        </div>
+
+        <div class="card">
+            <h3>🛡️ CVSS v3.1 Calculator</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="av">Attack Vector (AV):</label>
+                    <select id="av">
+                        <option value="N">Network (N)</option>
+                        <option value="A">Adjacent (A)</option>
+                        <option value="L">Local (L)</option>
+                        <option value="P">Physical (P)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ac">Attack Complexity (AC):</label>
+                    <select id="ac">
+                        <option value="L">Low (L)</option>
+                        <option value="H">High (H)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="pr">Privileges Required (PR):</label>
+                    <select id="pr">
+                        <option value="N">None (N)</option>
+                        <option value="L">Low (L)</option>
+                        <option value="H">High (H)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ui">User Interaction (UI):</label>
+                    <select id="ui">
+                        <option value="N">None (N)</option>
+                        <option value="R">Required (R)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="s">Scope (S):</label>
+                    <select id="s">
+                        <option value="U">Unchanged (U)</option>
+                        <option value="C">Changed (C)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="c">Confidentiality Impact (C):</label>
+                    <select id="c">
+                        <option value="N">None (N)</option>
+                        <option value="L">Low (L)</option>
+                        <option value="H">High (H)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="i">Integrity Impact (I):</label>
+                    <select id="i">
+                        <option value="N">None (N)</option>
+                        <option value="L">Low (L)</option>
+                        <option value="H">High (H)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="a">Availability Impact (A):</label>
+                    <select id="a">
+                        <option value="N">None (N)</option>
+                        <option value="L">Low (L)</option>
+                        <option value="H">High (H)</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="calculateCVSS()">Calculate CVSS</button>
+            <div id="cvssResult" class="result-box"></div>
+        </div>
+
+        <div class="card">
+            <h3>📊 OWASP Risk Calculator</h3>
+            <div class="calculator-body">
+                <div class="panel">
+                    <h2>Likelihood</h2>
+                    <h3>Threat Agent Factors</h3>
+                    <div class="grid-2">
+                        <div class="factor">
+                            <label for="skillLevel">Skill Level</label>
+                            <input type="range" id="skillLevel" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="motive">Motive</label>
+                            <input type="range" id="motive" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="opportunity">Opportunity</label>
+                            <input type="range" id="opportunity" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="size">Size</label>
+                            <input type="range" id="size" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                    </div>
+
+                    <h3>Vulnerability Factors</h3>
+                    <div class="grid-2">
+                        <div class="factor">
+                            <label for="easeDiscovery">Ease of Discovery</label>
+                            <input type="range" id="easeDiscovery" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="easeExploit">Ease of Exploit</label>
+                            <input type="range" id="easeExploit" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="awareness">Awareness</label>
+                            <input type="range" id="awareness" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="intrusionDetection">Intrusion Detection</label>
+                            <input type="range" id="intrusionDetection" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Impact</h2>
+                    <h3>Technical Impact</h3>
+                    <div class="grid-2">
+                        <div class="factor">
+                            <label for="confidentiality">Loss of Confidentiality</label>
+                            <input type="range" id="confidentiality" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="integrity">Loss of Integrity</label>
+                            <input type="range" id="integrity" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="availability">Loss of Availability</label>
+                            <input type="range" id="availability" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="accountability">Loss of Accountability</label>
+                            <input type="range" id="accountability" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                    </div>
+
+                    <h3>Business Impact</h3>
+                    <div class="grid-2">
+                        <div class="factor">
+                            <label for="financialDamage">Financial Damage</label>
+                            <input type="range" id="financialDamage" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="reputationDamage">Reputation Damage</label>
+                            <input type="range" id="reputationDamage" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="nonCompliance">Non-Compliance</label>
+                            <input type="range" id="nonCompliance" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                        <div class="factor">
+                            <label for="privacyViolation">Privacy Violation</label>
+                            <input type="range" id="privacyViolation" min="0" max="9" value="4">
+                            <span class="slider-value">4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="calculateBtn">Calculate Risk</button>
+            <div id="result" class="result-box hidden">
+                <h3>Overall Risk</h3>
+                <p id="risk-score">Likelihood: 4.50 (Medium), Impact: 4.50 (Medium) | Approx. CVSS Range: 4-6.9</p>
+                <p id="risk-level">Medium</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

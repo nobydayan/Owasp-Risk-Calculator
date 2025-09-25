@@ -1,0 +1,162 @@
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+h3, h4 {
+  margin-top: 0;
+  color: #222;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+label {
+  display: block;
+  margin: 8px 0 4px;
+  font-weight: 500;
+}
+
+input[type="text"], select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border 0.2s;
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: #0078d7;
+  outline: none;
+}
+
+button {
+  margin-top: 15px;
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #005a9e;
+}
+
+.result-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.result-low {
+  background: #e6f9e6;
+  border: 1px solid #7fd37f;
+  color: #267326;
+}
+
+.result-medium {
+  background: #fff3e0;
+  border: 1px solid #ffb74d;
+  color: #bf6d00;
+}
+
+.result-high {
+  background: #ffe6e6;
+  border: 1px solid #e57373;
+  color: #a30000;
+}
+
+.result-critical {
+  background: #ffebee;
+  border: 1px solid #d32f2f;
+  color: #7f0000;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Slider styles */
+.factor {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.factor label {
+  flex: 1;
+  font-weight: 500;
+}
+
+input[type="range"] {
+  flex: 2;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #0078d7;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #005a9e;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #0078d7;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider-value {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #333;
+  min-width: 30px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .factor {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
