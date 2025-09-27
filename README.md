@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 
-Owasp Risk Calcultor is build based on Owasp Risk Rathing Methodology
+Owasp Risk Calcultor is build based on Owasp Risk Rating Methodology
 
 I've been working on refining the specific input factors for the project. The goal is to design a risk rating calculator that allows a user to identify a risk level for a particular area of their system/organzation . I'm focusing on defining a simplified input model based on a Likelihood Score and an Impact Score. The UI design will be simple, with sliders and color-coded risk levels. The output will be clear and actionable.
 
